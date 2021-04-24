@@ -2,10 +2,12 @@ package ru.ancndz.calculations;
 
 import org.apache.commons.math3.special.Erf;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+import org.springframework.stereotype.Component;
 import ru.ancndz.model.Sale;
 import ru.ancndz.model.Supply;
 
 import java.time.Duration;
+import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,48 +24,37 @@ public abstract class Calculation {
     protected Double demandVolumeLevel;
 
     /**
-     * Продажи.
-     */
-    protected List<Sale> saleList;
-
-    /**
      * Планируемое время выполнения заказа.
      */
-    protected Double leadCycle;
-
-    /**
-     * Даты заказов и поставок.
-     */
-    protected List<Supply> supplyList;
+    protected Double leadCycle = .0;
 
     /**
      * Дневной спрос.
      */
-    protected Double demand;
+    protected Double demand = .0;
+
+
+    protected Double orderVal = .0;
+
+    public Calculation() {}
+
+    public Calculation(Double demandVolumeLevel) {
+        this.demandVolumeLevel = demandVolumeLevel;
+    }
 
     /**
      * Расчет.
      */
-    public abstract void calculate();
+    public abstract void calculate(List<Sale> sales, List<Supply> supplies);
 
     public Double getStock() {
+        System.out.println(stock);
         return stock;
     }
 
     protected Double standardDev(double[] array) {
         StandardDeviation standardDeviation = new StandardDeviation(false);
         return standardDeviation.evaluate(array);
-
-        /*Double average = Arrays.stream(array).average().orElse(Double.NaN);
-
-        double dev = .0;
-        int size = array.length - 1;
-
-        for (Double each: array) {
-            dev += Math.pow(each - average, 2) / size;
-        }
-
-        return Math.sqrt(dev);*/
     }
 
     protected Double calcAverage(double[] array) {
@@ -74,7 +65,7 @@ public abstract class Calculation {
         return Math.sqrt(2) * Erf.erfcInv(2 * (1 - (demandVolumeLevel / 100)));
     }
 
-    protected double[] getSupplyDaysArray() {
+    protected double[] getSalesArray(List<Sale> saleList) {
         double[] a = new double[saleList.size()];
         for (int i = 0; i < saleList.size(); i++) {
             a[i] = saleList.get(i).getSaleCount();
@@ -82,31 +73,47 @@ public abstract class Calculation {
         return a;
     }
 
-    protected double[] getSalesArray() {
+    protected double[] getSupplyDaysArray(List<Supply> supplyList) {
         double[] b = new double[supplyList.size()];
         for (int i = 0; i < supplyList.size(); i++) {
-            b[i] = Duration.between(supplyList.get(i).getBeginDate(), supplyList.get(i).getEndDate()).toDays();
+            b[i] = Period.between(supplyList.get(i).getBeginDate(), supplyList.get(i).getEndDate()).getDays();
         }
         return b;
+    }
+
+    public void setStock(Double stock) {
+        this.stock = stock;
+    }
+
+    public Double getDemandVolumeLevel() {
+        return demandVolumeLevel;
     }
 
     public void setDemandVolumeLevel(Double demandVolumeLevel) {
         this.demandVolumeLevel = demandVolumeLevel;
     }
 
-    public void setSaleList(List<Sale> saleList) {
-        this.saleList = saleList;
+    public Double getLeadCycle() {
+        return leadCycle;
     }
 
     public void setLeadCycle(Double leadCycle) {
         this.leadCycle = leadCycle;
     }
 
-    public void setSupplyList(List<Supply> supplyList) {
-        this.supplyList = supplyList;
+    public Double getDemand() {
+        return demand;
     }
 
     public void setDemand(Double demand) {
         this.demand = demand;
+    }
+
+    public Double getOrderVal() {
+        return orderVal;
+    }
+
+    public void setOrderVal(Double orderVal) {
+        this.orderVal = orderVal;
     }
 }

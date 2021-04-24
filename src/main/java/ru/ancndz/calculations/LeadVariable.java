@@ -1,10 +1,20 @@
 package ru.ancndz.calculations;
 
+import ru.ancndz.model.Sale;
+import ru.ancndz.model.Supply;
+
+import java.util.List;
+
 public class LeadVariable extends Calculation {
 
+    public LeadVariable(Double demandVolumeLevel, Double demand) {
+        super(demandVolumeLevel);
+        this.demand = demand;
+    }
+
     @Override
-    public void calculate() {
-        double[] a = getSupplyDaysArray();
+    public void calculate(List<Sale> sales, List<Supply> supplies) {
+        double[] a = getSupplyDaysArray(supplies);
         this.stock = serviceLevelToZ() * standardDev(a) * demand;
     }
 

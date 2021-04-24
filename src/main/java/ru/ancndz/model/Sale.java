@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class Sale {
     private String id;
 
     @Column
-    private LocalDateTime saleDate;
+    private LocalDate saleDate;
 
     @Column
     private Double saleCount;
@@ -27,12 +28,12 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(LocalDateTime saleDate, Double saleCount) {
+    public Sale(LocalDate saleDate, Double saleCount) {
         this.saleDate = saleDate;
         this.saleCount = saleCount;
     }
 
-    public Sale(String id, LocalDateTime saleDate, Double saleCount) {
+    public Sale(String id, LocalDate saleDate, Double saleCount) {
         this.id = id;
         this.saleDate = saleDate;
         this.saleCount = saleCount;
@@ -46,11 +47,11 @@ public class Sale {
         this.id = id;
     }
 
-    public LocalDateTime getSaleDate() {
+    public LocalDate getSaleDate() {
         return saleDate;
     }
 
-    public void setSaleDate(LocalDateTime saleDate) {
+    public void setSaleDate(LocalDate saleDate) {
         this.saleDate = saleDate;
     }
 
@@ -74,5 +75,14 @@ public class Sale {
     @Override
     public int hashCode() {
         return Objects.hash(saleDate, saleCount);
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id='" + id + '\'' +
+                ", saleDate=" + saleDate +
+                ", saleCount=" + saleCount +
+                '}';
     }
 }

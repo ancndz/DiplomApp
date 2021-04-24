@@ -75,4 +75,13 @@ public class Supply {
     public int hashCode() {
         return Objects.hash(beginDate, endDate);
     }
+
+    @Override
+    public String toString() {
+        return "Supply{" +
+                "id='" + id + '\'' +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

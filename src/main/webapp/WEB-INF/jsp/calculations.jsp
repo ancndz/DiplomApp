@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=cp1251" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE HTML>
 <html>
 <head>

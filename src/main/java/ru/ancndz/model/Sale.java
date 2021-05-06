@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -20,9 +21,11 @@ public class Sale {
     private String id;
 
     @Column
+    @NotNull
     private LocalDate saleDate;
 
     @Column
+    @NotNull
     private Double saleCount;
 
     public Sale() {

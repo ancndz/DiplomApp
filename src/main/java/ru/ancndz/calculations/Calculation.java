@@ -31,7 +31,6 @@ public abstract class Calculation {
      */
     protected Double demand = .0;
 
-
     protected Double orderVal = .0;
 
     public Calculation() {
@@ -46,9 +45,9 @@ public abstract class Calculation {
      */
     public abstract void calculate(List<Sale> sales, List<Supply> supplies);
 
-    public Double getStock() {
+    public String getStockFormatted() {
         System.out.println(stock);
-        return stock;
+        return String.format("Страховой запас: %.2f", stock);
     }
 
     protected Double standardDev(double[] array) {

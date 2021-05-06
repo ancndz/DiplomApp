@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -19,9 +20,11 @@ public class Supply {
     private String id;
 
     @Column
+    @NotNull
     private LocalDate beginDate;
 
     @Column
+    @NotNull
     private LocalDate endDate;
 
     public Supply() {

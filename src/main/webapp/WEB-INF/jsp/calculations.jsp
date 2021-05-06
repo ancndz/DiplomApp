@@ -8,7 +8,7 @@
           href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body>
-<h2 align="center">Оптимальный расчет страхового запаса</h2>
+<h1 align="center">Оптимальный расчет страхового запаса</h1>
 
 <form method="POST" action="/calculations/poc">
     <table align="center">
@@ -28,19 +28,29 @@
             <td><input type="number" name="demandVolumeLevel"/> %</td>
         </tr>
         <tr>
+            <td>Начальная дата исследуемого периода:</td>
+            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
+            <td>Конечная дата исследуемого периода:</td>
+            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
             <td><input type="submit" name="Расчитать страховой запас"/></td>
             <td style="font-weight: bold" align="center">${resultPOC}</td>
         </tr>
     </table>
 </form>
 <br>
-
+<hr align="center" width="800" size="2" color="#000000"/>
+<br>
 <form method="POST" action="/calculations/lv">
     <table align="center">
         <caption>Цикл запаса может оказаться больше расчетного на
             величину задержки в сроках поставки. Поскольку спрос во время цикла запаса является
             постоянным, то необходимы страховые запасы только на период, равный <br>
-            стандартному отклонению сроков поставки. </caption>
+            стандартному отклонению сроков поставки.
+        </caption>
         <tr>
             <td>Дневной спрос:</td>
             <td><input type="number" name="demand"/></td>
@@ -50,19 +60,29 @@
             <td><input type="number" name="demandVolumeLevel"/> %</td>
         </tr>
         <tr>
+            <td>Начальная дата исследуемого периода:</td>
+            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
+            <td>Конечная дата исследуемого периода:</td>
+            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
             <td><input type="submit" name="Расчитать страховой запас"/></td>
             <td style="font-weight: bold" align="center">${resultLV}</td>
         </tr>
     </table>
 </form>
 <br>
-
+<hr align="center" width="800" size="2" color="#000000"/>
+<br>
 <form method="POST" action="/calculations/dv">
     <table align="center">
         <caption>В
             тот момент, когда запас расходуется полностью (в последний день цикла), <br>
             происходит его пополнение до первоначального уровня, равного объему
-            оптимального заказа.</caption>
+            оптимального заказа.
+        </caption>
         <tr>
             <td>Планируемое время выполнения заказа (дни):</td>
             <td><input type="number" name="leadCycle"/></td>
@@ -70,6 +90,14 @@
         <tr>
             <td>Желаемый уровень сервиса:</td>
             <td><input type="number" name="demandVolumeLevel"/> %</td>
+        </tr>
+        <tr>
+            <td>Начальная дата исследуемого периода:</td>
+            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
+            <td>Конечная дата исследуемого периода:</td>
+            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
         </tr>
         <tr>
             <td><input type="submit" name="Расчитать страховой запас"/></td>
@@ -78,12 +106,14 @@
     </table>
 </form>
 <br>
-
+<hr align="center" width="800" size="2" color="#000000"/>
+<br>
 <form method="POST" action="/calculations/ldv">
     <table align="center">
         <caption>В третьей ситуации рассматривается комбинация факторов
             неопределенности спроса и сроков поставки. В этом случае общая <br>
-            неопределенность может быть представлена, как сумма указанных рисков</caption>
+            неопределенность может быть представлена, как сумма указанных рисков
+        </caption>
         <tr>
             <td>Планируемое время выполнения заказа (дни):</td>
             <td><input type="number" name="leadCycle"/></td>
@@ -93,23 +123,40 @@
             <td><input type="number" name="demandVolumeLevel"/> %</td>
         </tr>
         <tr>
+            <td>Начальная дата исследуемого периода:</td>
+            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
+            <td>Конечная дата исследуемого периода:</td>
+            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
             <td><input type="submit" name="Расчитать страховой запас"/></td>
             <td style="font-weight: bold" align="center">${resultLDV}</td>
         </tr>
     </table>
 </form>
 <br>
-
+<hr align="center" width="800" size="2" color="#000000"/>
+<br>
 <form method="POST" action="/calculations/bv">
     <table align="center">
         <caption>Формула Бауэрсокса для расчета величины страхового запаса в условиях неопределенности</caption>
         <tr>
-            <td>Введите размер заказа: </td>
+            <td>Введите размер заказа:</td>
             <td><input type="number" name="orderVal"/></td>
         </tr>
         <tr>
             <td>Желаемый уровень сервиса:</td>
             <td><input type="number" name="demandVolumeLevel"/> %</td>
+        </tr>
+        <tr>
+            <td>Начальная дата исследуемого периода:</td>
+            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
+        </tr>
+        <tr>
+            <td>Конечная дата исследуемого периода:</td>
+            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
         </tr>
         <tr>
             <td><input type="submit" name="Расчитать страховой запас"/></td>
@@ -118,9 +165,8 @@
     </table>
 </form>
 <br>
+<hr align="center" width="800" size="2" color="#000000"/>
 <br>
-<a href="${pageContext.request.contextPath}/">Главная</a> <br>
-
+<a href="${pageContext.request.contextPath}/">Главная</a>
 </body>
-
 </html>

@@ -32,8 +32,8 @@ public class Run implements ApplicationRunner {
         String datePattern = "dd.MM.yyyy";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(datePattern);
 
-        addInitDataSales(dateTimeFormatter);
-        addInitDataSupplies(dateTimeFormatter);
+        //addInitDataSales(dateTimeFormatter);
+        //addInitDataSupplies(dateTimeFormatter);
     }
 
     private void addInitDataSupplies(DateTimeFormatter dateTimeFormatter) {

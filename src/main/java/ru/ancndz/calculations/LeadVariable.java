@@ -14,8 +14,7 @@ public class LeadVariable extends Calculation {
 
     @Override
     public void calculate(List<Sale> sales, List<Supply> supplies) {
-        double[] a = getSupplyDaysArray(supplies);
-        this.stock = serviceLevelToZ() * standardDev(a) * demand;
+        this.stock = serviceLevelToZ() * standardDev(getSupplyDaysArray(supplies)) * demand;
     }
 
 }

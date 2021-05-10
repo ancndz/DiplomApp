@@ -6,9 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,9 @@ public class Sale {
     @Column
     @NotNull
     private Double saleCount;
+
+    @Transient
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
     public Sale() {
     }
@@ -82,10 +86,6 @@ public class Sale {
 
     @Override
     public String toString() {
-        return "Sale{" +
-                "id='" + id + '\'' +
-                ", saleDate=" + saleDate +
-                ", saleCount=" + saleCount +
-                '}';
+        return String.format("Дата продажи: %s, Количество: %s", this.saleDate.format(this.dateTimeFormatter), this.saleCount.toString());
     }
 }

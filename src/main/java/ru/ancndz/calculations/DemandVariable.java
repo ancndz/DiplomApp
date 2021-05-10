@@ -14,8 +14,7 @@ public class DemandVariable extends Calculation {
 
     @Override
     public void calculate(List<Sale> sales, List<Supply> supplies) {
-        double[] a = getSalesArray(sales);
-        this.stock = serviceLevelToZ() * standardDev(a) * Math.sqrt(leadCycle);
+        this.stock = serviceLevelToZ() * standardDev(getSalesArray(sales)) * Math.sqrt(leadCycle);
     }
 
 

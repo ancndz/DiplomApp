@@ -6,8 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,9 @@ public class Supply {
     @Column
     @NotNull
     private LocalDate endDate;
+
+    @Transient
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
     public Supply() {
     }
@@ -81,10 +86,6 @@ public class Supply {
 
     @Override
     public String toString() {
-        return "Supply{" +
-                "id='" + id + '\'' +
-                ", beginDate=" + beginDate +
-                ", endDate=" + endDate +
-                '}';
+        return String.format("Дата заказа: %s, Дата поставки: %s", this.beginDate.format(this.dateTimeFormatter), this.endDate.format(this.dateTimeFormatter));
     }
 }

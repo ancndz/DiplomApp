@@ -1,172 +1,354 @@
-<%@ page contentType="text/html;charset=cp1251" %>
+<%@ page contentType="text/html;charset=utf-8" %>
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Расчет</title>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/css/style.css"/>
+    <title>Р Р°СЃС‡РµС‚</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 </head>
 <body>
-<h1 align="center">Оптимальный расчет страхового запаса</h1>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 px-3">
+    <a class="navbar-brand">Р Р°СЃС‡РµС‚ СЃС‚СЂР°С…РѕРІС‹С… Р·Р°РїР°СЃРѕРІ</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor2"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarColor2" style>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/">Р“Р»Р°РІРЅР°СЏ</a></li>
+            <li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/calculations/">РћРїС‚РёРјР°Р»СЊРЅС‹Р№
+                СЂР°СЃС‡РµС‚ СЃС‚СЂР°С…РѕРІРѕРіРѕ Р·Р°РїР°СЃР°</a></li>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/data/">Р”Р°РЅРЅС‹Рµ</a></li>
+        </ul>
+    </div>
+</nav>
 
-<form method="POST" action="/calculations/poc">
-    <table align="center">
-        <caption>Расчет оптимального запаса для товаров с длительным, <br>
-            но постоянным временем выполнения заказа и довольно постоянным спросом.
-        </caption>
-        <tr>
-            <td>Планируемое время выполнения заказа:</td>
-            <td><input type="number" name="time"/></td>
-        </tr>
-        <tr>
-            <td>Дневной спрос:</td>
-            <td><input type="number" name="demand"/></td>
-        </tr>
-        <tr>
-            <td>Уровень страхового запаса от объема спроса:</td>
-            <td><input type="number" name="demandVolumeLevel"/> %</td>
-        </tr>
-        <tr>
-            <td>Начальная дата исследуемого периода:</td>
-            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td>Конечная дата исследуемого периода:</td>
-            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="Расчитать страховой запас"/></td>
-            <td style="font-weight: bold" align="center">${resultPOC}</td>
-        </tr>
-    </table>
-</form>
-<br>
-<hr align="center" width="800" size="2" color="#000000"/>
-<br>
-<form method="POST" action="/calculations/lv">
-    <table align="center">
-        <caption>Цикл запаса может оказаться больше расчетного на
-            величину задержки в сроках поставки. Поскольку спрос во время цикла запаса является
-            постоянным, то необходимы страховые запасы только на период, равный <br>
-            стандартному отклонению сроков поставки.
-        </caption>
-        <tr>
-            <td>Дневной спрос:</td>
-            <td><input type="number" name="demand"/></td>
-        </tr>
-        <tr>
-            <td>Желаемый уровень сервиса:</td>
-            <td><input type="number" name="demandVolumeLevel"/> %</td>
-        </tr>
-        <tr>
-            <td>Начальная дата исследуемого периода:</td>
-            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td>Конечная дата исследуемого периода:</td>
-            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="Расчитать страховой запас"/></td>
-            <td style="font-weight: bold" align="center">${resultLV}</td>
-        </tr>
-    </table>
-</form>
-<br>
-<hr align="center" width="800" size="2" color="#000000"/>
-<br>
-<form method="POST" action="/calculations/dv">
-    <table align="center">
-        <caption>В
-            тот момент, когда запас расходуется полностью (в последний день цикла), <br>
-            происходит его пополнение до первоначального уровня, равного объему
-            оптимального заказа.
-        </caption>
-        <tr>
-            <td>Планируемое время выполнения заказа (дни):</td>
-            <td><input type="number" name="leadCycle"/></td>
-        </tr>
-        <tr>
-            <td>Желаемый уровень сервиса:</td>
-            <td><input type="number" name="demandVolumeLevel"/> %</td>
-        </tr>
-        <tr>
-            <td>Начальная дата исследуемого периода:</td>
-            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td>Конечная дата исследуемого периода:</td>
-            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="Расчитать страховой запас"/></td>
-            <td style="font-weight: bold" align="center">${resultDV}</td>
-        </tr>
-    </table>
-</form>
-<br>
-<hr align="center" width="800" size="2" color="#000000"/>
-<br>
-<form method="POST" action="/calculations/ldv">
-    <table align="center">
-        <caption>В третьей ситуации рассматривается комбинация факторов
-            неопределенности спроса и сроков поставки. В этом случае общая <br>
-            неопределенность может быть представлена, как сумма указанных рисков
-        </caption>
-        <tr>
-            <td>Планируемое время выполнения заказа (дни):</td>
-            <td><input type="number" name="leadCycle"/></td>
-        </tr>
-        <tr>
-            <td>Желаемый уровень сервиса:</td>
-            <td><input type="number" name="demandVolumeLevel"/> %</td>
-        </tr>
-        <tr>
-            <td>Начальная дата исследуемого периода:</td>
-            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td>Конечная дата исследуемого периода:</td>
-            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="Расчитать страховой запас"/></td>
-            <td style="font-weight: bold" align="center">${resultLDV}</td>
-        </tr>
-    </table>
-</form>
-<br>
-<hr align="center" width="800" size="2" color="#000000"/>
-<br>
-<form method="POST" action="/calculations/bv">
-    <table align="center">
-        <caption>Формула Бауэрсокса для расчета величины страхового запаса в условиях неопределенности</caption>
-        <tr>
-            <td>Введите размер заказа:</td>
-            <td><input type="number" name="orderVal"/></td>
-        </tr>
-        <tr>
-            <td>Желаемый уровень сервиса:</td>
-            <td><input type="number" name="demandVolumeLevel"/> %</td>
-        </tr>
-        <tr>
-            <td>Начальная дата исследуемого периода:</td>
-            <td><input type="date" name="minDate" value="${minDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td>Конечная дата исследуемого периода:</td>
-            <td><input type="date" name="maxDate" value="${maxDate}" min="${minDate}" max="${maxDate}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="Расчитать страховой запас"/></td>
-            <td style="font-weight: bold" align="center">${resultBV}</td>
-        </tr>
-    </table>
-</form>
-<br>
-<hr align="center" width="800" size="2" color="#000000"/>
-<br>
-<a href="${pageContext.request.contextPath}/">Главная</a>
+<main role="main" class="container">
+    <div class="row-cols-auto justify-content-center">
+        <div class="col-12">
+            <h1>РћРїС‚РёРјР°Р»СЊРЅС‹Р№ СЂР°СЃС‡РµС‚ СЃС‚СЂР°С…РѕРІРѕРіРѕ Р·Р°РїР°СЃР°</h1></div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-sm-5 card m-2 px-0">
+            <div class="card-header">
+                <p>Р Р°СЃС‡РµС‚ РѕРїС‚РёРјР°Р»СЊРЅРѕРіРѕ Р·Р°РїР°СЃР° РґР»СЏ С‚РѕРІР°СЂРѕРІ СЃ РґР»РёС‚РµР»СЊРЅС‹Рј, <br>
+                    РЅРѕ РїРѕСЃС‚РѕСЏРЅРЅС‹Рј РІСЂРµРјРµРЅРµРј РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РєР°Р·Р° Рё РґРѕРІРѕР»СЊРЅРѕ РїРѕСЃС‚РѕСЏРЅРЅС‹Рј СЃРїСЂРѕСЃРѕРј.</p>
+            </div>
+            <form method="POST" action="${pageContext.request.contextPath}/calculations/poc" class="card-body">
+                <fieldset>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="time">РџР»Р°РЅРёСЂСѓРµРјРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РєР°Р·Р°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="time" type="number" name="time"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demand">Р”РЅРµРІРЅРѕР№ СЃРїСЂРѕСЃ:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="demand" type="number" name="demand"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demandVolumeLevel">РЈСЂРѕРІРµРЅСЊ СЃС‚СЂР°С…РѕРІРѕРіРѕ Р·Р°РїР°СЃР° РѕС‚ РѕР±СЉРµРјР° СЃРїСЂРѕСЃР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input required class="form-control" id="demandVolumeLevel" type="number"
+                                       name="demandVolumeLevel"/>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="minDate">РќР°С‡Р°Р»СЊРЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="minDate" type="date" name="minDate"
+                                   value="${minDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8"><label for="maxDate">РљРѕРЅРµС‡РЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label></div>
+                        <div class="col-4"><input required class="form-control" id="maxDate" type="date" name="maxDate"
+                                                  value="${maxDate}"
+                                                  min="${minDate}"
+                                                  max="${maxDate}"></div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ СЃС‚СЂР°С…РѕРІРѕР№ Р·Р°РїР°СЃ</button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12"><p style="font-weight: bold">${resultPOC}</p></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-sm-5 card m-2 px-0">
+            <div class="card-header">
+                <p>Р¦РёРєР» Р·Р°РїР°СЃР° РјРѕР¶РµС‚ РѕРєР°Р·Р°С‚СЊСЃСЏ Р±РѕР»СЊС€Рµ СЂР°СЃС‡РµС‚РЅРѕРіРѕ РЅР°
+                    РІРµР»РёС‡РёРЅСѓ Р·Р°РґРµСЂР¶РєРё РІ СЃСЂРѕРєР°С… РїРѕСЃС‚Р°РІРєРё. РџРѕСЃРєРѕР»СЊРєСѓ СЃРїСЂРѕСЃ РІРѕ РІСЂРµРјСЏ С†РёРєР»Р° Р·Р°РїР°СЃР° СЏРІР»СЏРµС‚СЃСЏ
+                    РїРѕСЃС‚РѕСЏРЅРЅС‹Рј, С‚Рѕ РЅРµРѕР±С…РѕРґРёРјС‹ СЃС‚СЂР°С…РѕРІС‹Рµ Р·Р°РїР°СЃС‹ С‚РѕР»СЊРєРѕ РЅР° РїРµСЂРёРѕРґ, СЂР°РІРЅС‹Р№ <br>
+                    СЃС‚Р°РЅРґР°СЂС‚РЅРѕРјСѓ РѕС‚РєР»РѕРЅРµРЅРёСЋ СЃСЂРѕРєРѕРІ РїРѕСЃС‚Р°РІРєРё.</p>
+            </div>
+            <form method="POST" action="${pageContext.request.contextPath}/calculations/lv" class="card-body">
+                <fieldset>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demandLV">Р”РЅРµРІРЅРѕР№ СЃРїСЂРѕСЃ:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="demandLV" type="number" name="demand"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demandVolumeLevelLV">Р–РµР»Р°РµРјС‹Р№ СѓСЂРѕРІРµРЅСЊ СЃРµСЂРІРёСЃР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input required class="form-control" id="demandVolumeLevelLV" type="number"
+                                       name="demandVolumeLevel"/>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="minDateLV">РќР°С‡Р°Р»СЊРЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="minDateLV" type="date" name="minDate"
+                                   value="${minDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="maxDateLV">РљРѕРЅРµС‡РЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="maxDateLV" type="date" name="maxDate" value="${maxDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ СЃС‚СЂР°С…РѕРІРѕР№ Р·Р°РїР°СЃ</button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12"><p style="font-weight: bold">${resultLV}</p></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-sm-5 card m-2 px-0">
+            <div class="card-header">
+                <p>Р’ С‚РѕС‚ РјРѕРјРµРЅС‚, РєРѕРіРґР° Р·Р°РїР°СЃ СЂР°СЃС…РѕРґСѓРµС‚СЃСЏ РїРѕР»РЅРѕСЃС‚СЊСЋ (РІ РїРѕСЃР»РµРґРЅРёР№ РґРµРЅСЊ С†РёРєР»Р°),
+                    <br>
+                    РїСЂРѕРёСЃС…РѕРґРёС‚ РµРіРѕ РїРѕРїРѕР»РЅРµРЅРёРµ РґРѕ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРіРѕ СѓСЂРѕРІРЅСЏ, СЂР°РІРЅРѕРіРѕ РѕР±СЉРµРјСѓ
+                    РѕРїС‚РёРјР°Р»СЊРЅРѕРіРѕ Р·Р°РєР°Р·Р°.</p>
+            </div>
+            <form method="POST" action="${pageContext.request.contextPath}/calculations/dv" class="card-body">
+                <fieldset>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="timeDV">РџР»Р°РЅРёСЂСѓРµРјРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РєР°Р·Р°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="timeDV" type="number" name="time"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demandVolumeLevelDV">Р–РµР»Р°РµРјС‹Р№ СѓСЂРѕРІРµРЅСЊ СЃРµСЂРІРёСЃР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input required class="form-control" id="demandVolumeLevelDV" type="number"
+                                       name="demandVolumeLevel"/>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="minDateDV">РќР°С‡Р°Р»СЊРЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="minDateDV" type="date" name="minDate" value="${minDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="maxDateDV">РљРѕРЅРµС‡РЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="maxDateDV" type="date" name="maxDate" value="${maxDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ СЃС‚СЂР°С…РѕРІРѕР№ Р·Р°РїР°СЃ</button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12"><p style="font-weight: bold">${resultDV}</p></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-sm-5 card m-2 px-0">
+            <div class="card-header">
+                <p>Р’ С‚СЂРµС‚СЊРµР№ СЃРёС‚СѓР°С†РёРё СЂР°СЃСЃРјР°С‚СЂРёРІР°РµС‚СЃСЏ РєРѕРјР±РёРЅР°С†РёСЏ С„Р°РєС‚РѕСЂРѕРІ
+                    РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚Рё СЃРїСЂРѕСЃР° Рё СЃСЂРѕРєРѕРІ РїРѕСЃС‚Р°РІРєРё. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РѕР±С‰Р°СЏ <br>
+                    РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚СЊ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСЂРµРґСЃС‚Р°РІР»РµРЅР°, РєР°Рє СЃСѓРјРјР° СѓРєР°Р·Р°РЅРЅС‹С… СЂРёСЃРєРѕРІ.</p>
+            </div>
+            <form method="POST" action="${pageContext.request.contextPath}/calculations/ldv" class="card-body">
+                <fieldset>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="timeLDV">РџР»Р°РЅРёСЂСѓРµРјРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РєР°Р·Р°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="timeLDV" type="number" name="time"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demandVolumeLevelLDV">Р–РµР»Р°РµРјС‹Р№ СѓСЂРѕРІРµРЅСЊ СЃРµСЂРІРёСЃР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input required class="form-control" id="demandVolumeLevelLDV" type="number"
+                                       name="demandVolumeLevel"/>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="minDateLDV">РќР°С‡Р°Р»СЊРЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="minDateLDV" type="date" name="minDate"
+                                   value="${minDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="maxDateLDV">РљРѕРЅРµС‡РЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="maxDateLDV" type="date" name="maxDate"
+                                   value="${maxDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ СЃС‚СЂР°С…РѕРІРѕР№ Р·Р°РїР°СЃ</button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12"><p style="font-weight: bold">${resultLDV}</p></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-sm-5 card m-2 px-0">
+            <div class="card-header">
+                <p>Р¤РѕСЂРјСѓР»Р° Р‘Р°СѓСЌСЂСЃРѕРєСЃР° РґР»СЏ СЂР°СЃС‡РµС‚Р° РІРµР»РёС‡РёРЅС‹ СЃС‚СЂР°С…РѕРІРѕРіРѕ Р·Р°РїР°СЃР° РІ СѓСЃР»РѕРІРёСЏС…
+                    РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚Рё.</p>
+            </div>
+            <form method="POST" action="${pageContext.request.contextPath}/calculations/bv" class="card-body">
+                <fieldset>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="orderVal">Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ Р·Р°РєР°Р·Р°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="orderVal" type="number" name="orderVal"/>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="demandVolumeLevelBV">Р–РµР»Р°РµРјС‹Р№ СѓСЂРѕРІРµРЅСЊ СЃРµСЂРІРёСЃР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input required class="form-control" id="demandVolumeLevelBV" type="number"
+                                       name="demandVolumeLevel"/>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="minDateBV">РќР°С‡Р°Р»СЊРЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="minDateBV" type="date" name="minDate"
+                                   value="${minDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-8">
+                            <label for="maxDateBV">РљРѕРЅРµС‡РЅР°СЏ РґР°С‚Р° РёСЃСЃР»РµРґСѓРµРјРѕРіРѕ РїРµСЂРёРѕРґР°:</label>
+                        </div>
+                        <div class="col-4">
+                            <input required class="form-control" id="maxDateBV" type="date" name="maxDate" value="${maxDate}"
+                                   min="${minDate}"
+                                   max="${maxDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ СЃС‚СЂР°С…РѕРІРѕР№ Р·Р°РїР°СЃ</button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 justify-content-between">
+                        <div class="col-12"><p style="font-weight: bold">${resultBV}</p></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
 </body>
 </html>

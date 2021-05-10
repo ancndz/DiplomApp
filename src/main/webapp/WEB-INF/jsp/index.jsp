@@ -1,18 +1,37 @@
-<%@ page contentType="text/html;charset=cp1251"%>
+<%@ page contentType="text/html;charset=utf-8" %>
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Главная</title>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/css/style.css"/>
+    <meta charset="UTF-8"/>
+    <title>Р“Р»Р°РІРЅР°СЏ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 </head>
 <body>
-<jsp:useBean id="message" scope="request" type="java.lang.String"/>
-<h2>${message}</h2>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 px-3">
+    <a class="navbar-brand">Р Р°СЃС‡РµС‚ СЃС‚СЂР°С…РѕРІС‹С… Р·Р°РїР°СЃРѕРІ</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor2"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarColor2" style>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/">Р“Р»Р°РІРЅР°СЏ</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/calculations/">РћРїС‚РёРјР°Р»СЊРЅС‹Р№
+                СЂР°СЃС‡РµС‚ СЃС‚СЂР°С…РѕРІРѕРіРѕ Р·Р°РїР°СЃР°</a></li>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/data/">Р”Р°РЅРЅС‹Рµ</a></li>
+        </ul>
+    </div>
+</nav>
 
-<a href="${pageContext.request.contextPath}/calculations">Оптимальный расчет страхового запаса</a>
+<div class="page-header px-5">
+    <h2>${message}</h2>
+</div>
 
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
 </body>
-
 </html>

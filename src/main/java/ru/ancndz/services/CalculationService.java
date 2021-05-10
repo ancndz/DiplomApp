@@ -1,7 +1,6 @@
 package ru.ancndz.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.ancndz.model.Sale;
 import ru.ancndz.model.Supply;

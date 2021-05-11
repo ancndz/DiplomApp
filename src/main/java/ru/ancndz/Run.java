@@ -3,6 +3,8 @@ package ru.ancndz;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.ancndz.model.Sale;
 import ru.ancndz.model.Supply;
 import ru.ancndz.repos.SalesRepository;
@@ -17,7 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
-public class Run implements ApplicationRunner {
+public class Run implements ApplicationRunner, WebMvcConfigurer {
 
     private final SalesRepository salesRepository;
     private final SupplyRepository supplyRepository;
@@ -34,6 +36,11 @@ public class Run implements ApplicationRunner {
 
         addInitDataSales(dateTimeFormatter);
         addInitDataSupplies(dateTimeFormatter);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     private void addInitDataSupplies(DateTimeFormatter dateTimeFormatter) {

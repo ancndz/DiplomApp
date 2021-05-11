@@ -6,6 +6,7 @@
     <title>Расчет</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 px-3">
@@ -36,7 +37,7 @@
                 <p>Расчет оптимального запаса для товаров с длительным, <br>
                     но постоянным временем выполнения заказа и довольно постоянным спросом.</p>
             </div>
-            <form method="POST" action="${pageContext.request.contextPath}/calculations/poc" class="card-body">
+            <form method="POST" action="${pageContext.request.contextPath}/api/poc" class="card-body" id="pocForm">
                 <fieldset>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-8">
@@ -86,11 +87,11 @@
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonpoc">Рассчитать страховой запас</button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-12"><p style="font-weight: bold">${resultPOC}</p></div>
+                        <div class="col-12"><p style="font-weight: bold" id="resultpoc"></p></div>
                     </div>
                 </fieldset>
             </form>
@@ -103,7 +104,7 @@
                     постоянным, то необходимы страховые запасы только на период, равный <br>
                     стандартному отклонению сроков поставки.</p>
             </div>
-            <form method="POST" action="${pageContext.request.contextPath}/calculations/lv" class="card-body">
+            <form method="POST" action="${pageContext.request.contextPath}/api/lv" class="card-body" id="lvForm">
                 <fieldset>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-8">
@@ -148,11 +149,11 @@
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonlv">Рассчитать страховой запас</button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-12"><p style="font-weight: bold">${resultLV}</p></div>
+                        <div class="col-12"><p style="font-weight: bold" id="resultlv"></p></div>
                     </div>
                 </fieldset>
             </form>
@@ -167,7 +168,7 @@
                     происходит его пополнение до первоначального уровня, равного объему
                     оптимального заказа.</p>
             </div>
-            <form method="POST" action="${pageContext.request.contextPath}/calculations/dv" class="card-body">
+            <form method="POST" action="${pageContext.request.contextPath}/api/dv" class="card-body" id="dvForm">
                 <fieldset>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-8">
@@ -211,11 +212,11 @@
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttondv">Рассчитать страховой запас</button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-12"><p style="font-weight: bold">${resultDV}</p></div>
+                        <div class="col-12"><p style="font-weight: bold" id="resultdv"></p></div>
                     </div>
                 </fieldset>
             </form>
@@ -227,7 +228,7 @@
                     неопределенности спроса и сроков поставки. В этом случае общая <br>
                     неопределенность может быть представлена, как сумма указанных рисков.</p>
             </div>
-            <form method="POST" action="${pageContext.request.contextPath}/calculations/ldv" class="card-body">
+            <form method="POST" action="${pageContext.request.contextPath}/api/ldv" class="card-body" id="ldvForm">
                 <fieldset>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-8">
@@ -273,11 +274,11 @@
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonldv">Рассчитать страховой запас</button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-12"><p style="font-weight: bold">${resultLDV}</p></div>
+                        <div class="col-12"><p style="font-weight: bold" id="resultldv"></p></div>
                     </div>
                 </fieldset>
             </form>
@@ -290,7 +291,7 @@
                 <p>Формула Бауэрсокса для расчета величины страхового запаса в условиях
                     неопределенности.</p>
             </div>
-            <form method="POST" action="${pageContext.request.contextPath}/calculations/bv" class="card-body">
+            <form method="POST" action="${pageContext.request.contextPath}/api/bv" class="card-body" id="bvForm">
                 <fieldset>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-8">
@@ -335,11 +336,11 @@
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonbv">Рассчитать страховой запас</button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-12"><p style="font-weight: bold">${resultBV}</p></div>
+                        <div class="col-12"><p style="font-weight: bold" id="resultbv"></p></div>
                     </div>
                 </fieldset>
             </form>
@@ -350,5 +351,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html>

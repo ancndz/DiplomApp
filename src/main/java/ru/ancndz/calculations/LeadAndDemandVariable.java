@@ -15,8 +15,17 @@ public class LeadAndDemandVariable extends DemandVariable {
     public void calculate(List<Sale> sales, List<Supply> supplies) {
         double[] salesArray = getSalesArray(sales);
         double[] supplyDaysArray = getSupplyDaysArray(supplies);
-        this.stock = serviceLevelToZ() *
-                Math.sqrt((Math.pow(standardDev(salesArray), 2) * (leadCycle + standardDev(supplyDaysArray)))
-                        + (Math.pow(calcAverage(salesArray), 2) * Math.pow(standardDev(supplyDaysArray), 2)));
+
+        Double averageSales = calcAverage(salesArray);
+        Double saleDev = standardDev(salesArray);
+        Double suppliesDaysDev = standardDev(supplyDaysArray);
+
+        double z = serviceLevelToZ();
+
+        this.stock = z * Math.sqrt((Math.pow(saleDev, 2) * (leadCycle + suppliesDaysDev))
+                + (Math.pow(averageSales, 2) * Math.pow(suppliesDaysDev, 2)));
+
+        logger.info(String.format("LeadAndDemandVariable Calculation Info #1: AverageSales: %s, SaleDev: %s, SuppliesDaysDev: %s, ServiceLevelToZ: %s, Stock: %s",
+                averageSales, saleDev, suppliesDaysDev, z, stock));
     }
 }

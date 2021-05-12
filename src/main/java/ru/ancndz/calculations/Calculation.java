@@ -1,7 +1,10 @@
 package ru.ancndz.calculations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.commons.math3.special.Erf;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+import ru.ancndz.Run;
 import ru.ancndz.model.Sale;
 import ru.ancndz.model.Supply;
 
@@ -10,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Calculation {
+
+    static final Logger logger = LoggerFactory.getLogger(Calculation.class);
 
     /**
      * Страховой запас.
@@ -46,8 +51,7 @@ public abstract class Calculation {
     public abstract void calculate(List<Sale> sales, List<Supply> supplies);
 
     public String getStockFormatted() {
-        System.out.println(stock);
-        return String.format("Страховой запас: %.2f", stock);
+        return String.format("Страховой запас: %.2f", stock < 1e-5 ? 0 : stock);
     }
 
     protected Double standardDev(double[] array) {

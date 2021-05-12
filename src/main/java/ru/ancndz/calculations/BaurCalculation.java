@@ -15,15 +15,27 @@ public class BaurCalculation extends Calculation {
 
     @Override
     public void calculate(List<Sale> sales, List<Supply> supplies) {
+
         double[] salesArray = getSalesArray(sales);
         double[] supplyDaysArray = getSupplyDaysArray(supplies);
 
-        double fullDev = (Math.sqrt((Math.pow(calcAverage(salesArray), 2) * Math.pow(standardDev(supplyDaysArray), 2))
-                + (calcAverage(supplyDaysArray) * Math.pow(standardDev(salesArray), 2))));
+        Double averageSales = calcAverage(salesArray);
+        Double averageSuppliesDays = calcAverage(supplyDaysArray);
+        Double saleDev = standardDev(salesArray);
+        Double suppliesDaysDev = standardDev(supplyDaysArray);
+
+        double fullDev = (Math.sqrt((Math.pow(averageSales, 2) * Math.pow(suppliesDaysDev, 2))
+                + (averageSuppliesDays * Math.pow(saleDev, 2))));
 
         double fk = ((1 - (demandVolumeLevel / 100)) * orderVal) / fullDev;
+        double k = Erf.erfcInv(fk);
 
-        this.stock = Erf.erfcInv(fk) * fullDev;
+        this.stock = k * fullDev;
+
+        logger.info(String.format("Baur Calculation Info #1: AverageSales: %s, AverageSuppliesDays: %s, SaleDev: %s, SuppliesDaysDev: %s",
+                averageSales, averageSuppliesDays, saleDev, suppliesDaysDev));
+        logger.info(String.format("Baur Calculation Info #2: FullDev: %s, f(k): %s, k: %s, Stock: %s",
+                fullDev, fk, Erf.erfcInv(fk), stock));
     }
 
 }

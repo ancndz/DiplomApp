@@ -8,8 +8,6 @@ $(document).ready(function () {
         restModel["supplyTime"] = $("#time").val();
         restModel["dailyDemand"] = $("#demand").val();
         restModel["demandVolumeLevel"] = $("#demandVolumeLevel").val();
-        restModel["minDate"] = $("#minDate").val();
-        restModel["maxDate"] = $("#maxDate").val();
 
         fire_ajax_submit(restModel, "poc");
     });
@@ -70,7 +68,9 @@ $(document).ready(function () {
 
 function fire_ajax_submit(model, url) {
 
-    $("#buttonPOC").prop("disabled", true);
+    $('#loading').show();
+
+    $("#button" + url).prop("disabled", true);
 
     $.ajax({
         type: "POST",
@@ -87,7 +87,7 @@ function fire_ajax_submit(model, url) {
 
             console.log("SUCCESS : ", data);
             $("#button" + url).prop("disabled", false);
-
+            $('#loading').hide();
         },
         error: function (e) {
 
@@ -96,7 +96,7 @@ function fire_ajax_submit(model, url) {
 
             console.log("ERROR : ", e);
             $("#button" + url).prop("disabled", false);
-
+            $('#loading').hide();
         }
     });
 

@@ -28,6 +28,9 @@ public class BaurCalculation extends Calculation {
                 + (averageSuppliesDays * Math.pow(saleDev, 2))));
 
         double fk = ((1 - (demandVolumeLevel / 100)) * orderVal) / fullDev;
+        if (demandVolumeLevel == 100) {
+            fk = .99999 / fullDev;
+        }
         double k = Erf.erfcInv(fk);
 
         this.stock = k * fullDev;

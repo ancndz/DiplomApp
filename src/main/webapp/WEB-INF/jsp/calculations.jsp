@@ -34,8 +34,12 @@
     <div class="row justify-content-md-center">
         <div class="col-sm-5 card m-2 px-0">
             <div class="card-header">
-                <p>Расчет оптимального запаса для товаров с длительным, <br>
-                    но постоянным временем выполнения заказа и довольно постоянным спросом.</p>
+                <p>Расчет для:
+                <li>товаров с длительным, но постоянным временем выполнения заказа и довольно постоянным спросом;</li>
+                <li>товаров с очень коротким временем выполнения заказа и существенными колебаниями спроса от месяца к
+                    месяцу.
+                </li>
+                </p>
             </div>
             <form method="POST" action="${pageContext.request.contextPath}/api/poc" class="card-body" id="pocForm">
                 <fieldset>
@@ -68,26 +72,9 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-8">
-                            <label for="minDate">Начальная дата исследуемого периода:</label>
-                        </div>
-                        <div class="col-4">
-                            <input required class="form-control" id="minDate" type="date" name="minDate"
-                                   value="${minDate}"
-                                   min="${minDate}"
-                                   max="${maxDate}">
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2 justify-content-between">
-                        <div class="col-8"><label for="maxDate">Конечная дата исследуемого периода:</label></div>
-                        <div class="col-4"><input required class="form-control" id="maxDate" type="date" name="maxDate"
-                                                  value="${maxDate}"
-                                                  min="${minDate}"
-                                                  max="${maxDate}"></div>
-                    </div>
-                    <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="buttonpoc">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonpoc">Рассчитать страховой запас
+                            </button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
@@ -99,10 +86,10 @@
 
         <div class="col-sm-5 card m-2 px-0">
             <div class="card-header">
-                <p>Цикл запаса может оказаться больше расчетного на
-                    величину задержки в сроках поставки. Поскольку спрос во время цикла запаса является
-                    постоянным, то необходимы страховые запасы только на период, равный <br>
-                    стандартному отклонению сроков поставки.</p>
+                <p>Данная модель предназначена для товаров, срок поставки которых может колебаться, а спрос является
+                    статичным. Эта модель подойдет лучше всего для товаров, которые доставляют морским или
+                    железнодорожным путем, с долгим сроком годности, а так же хранение которых не вызывает крупных
+                    затрат.</p>
             </div>
             <form method="POST" action="${pageContext.request.contextPath}/api/lv" class="card-body" id="lvForm">
                 <fieldset>
@@ -142,14 +129,16 @@
                             <label for="maxDateLV">Конечная дата исследуемого периода:</label>
                         </div>
                         <div class="col-4">
-                            <input required class="form-control" id="maxDateLV" type="date" name="maxDate" value="${maxDate}"
+                            <input required class="form-control" id="maxDateLV" type="date" name="maxDate"
+                                   value="${maxDate}"
                                    min="${minDate}"
                                    max="${maxDate}">
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="buttonlv">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonlv">Рассчитать страховой запас
+                            </button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
@@ -163,10 +152,12 @@
     <div class="row justify-content-md-center">
         <div class="col-sm-5 card m-2 px-0">
             <div class="card-header">
-                <p>В тот момент, когда запас расходуется полностью (в последний день цикла),
-                    <br>
-                    происходит его пополнение до первоначального уровня, равного объему
-                    оптимального заказа.</p>
+                <p>Данная модель предназначена для товаров, имеющих постоянный срок поставки, а потребность может
+                    колебаться. Когда запас расходуется полностью, происходит его пополнение до первоначального уровня.
+                    В данном случае страховой запас будет минимальным, что позволяет держать меньше замороженных
+                    активов. Это крайне важно, к примеру, для товаров с небольшим сроком годности или обслуживание
+                    которых связано с большими затратами. Выбор исследуемых интервалов поможет
+                    правильно рассчитать страховой запас для сезонных товаров.</p>
             </div>
             <form method="POST" action="${pageContext.request.contextPath}/api/dv" class="card-body" id="dvForm">
                 <fieldset>
@@ -195,7 +186,8 @@
                             <label for="minDateDV">Начальная дата исследуемого периода:</label>
                         </div>
                         <div class="col-4">
-                            <input required class="form-control" id="minDateDV" type="date" name="minDate" value="${minDate}"
+                            <input required class="form-control" id="minDateDV" type="date" name="minDate"
+                                   value="${minDate}"
                                    min="${minDate}"
                                    max="${maxDate}">
                         </div>
@@ -205,14 +197,16 @@
                             <label for="maxDateDV">Конечная дата исследуемого периода:</label>
                         </div>
                         <div class="col-4">
-                            <input required class="form-control" id="maxDateDV" type="date" name="maxDate" value="${maxDate}"
+                            <input required class="form-control" id="maxDateDV" type="date" name="maxDate"
+                                   value="${maxDate}"
                                    min="${minDate}"
                                    max="${maxDate}">
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="buttondv">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttondv">Рассчитать страховой запас
+                            </button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
@@ -224,9 +218,9 @@
 
         <div class="col-sm-5 card m-2 px-0">
             <div class="card-header">
-                <p>В третьей ситуации рассматривается комбинация факторов
-                    неопределенности спроса и сроков поставки. В этом случае общая <br>
-                    неопределенность может быть представлена, как сумма указанных рисков.</p>
+                <p>В данной модели рассматривается комбинация факторов неопределенности спроса и сроков поставки.
+                    Данная модель может использоваться для любых категорий товаров, а выбор исследуемых интервалов поможет
+                    правильно рассчитать страховой запас для сезонных товаров.</p>
             </div>
             <form method="POST" action="${pageContext.request.contextPath}/api/ldv" class="card-body" id="ldvForm">
                 <fieldset>
@@ -274,7 +268,8 @@
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="buttonldv">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonldv">Рассчитать страховой запас
+                            </button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
@@ -289,7 +284,7 @@
         <div class="col-sm-5 card m-2 px-0">
             <div class="card-header">
                 <p>Формула Бауэрсокса для расчета величины страхового запаса в условиях
-                    неопределенности.</p>
+                    неопределенности. Отличается она от предыдущей тем, что</p>
             </div>
             <form method="POST" action="${pageContext.request.contextPath}/api/bv" class="card-body" id="bvForm">
                 <fieldset>
@@ -329,14 +324,16 @@
                             <label for="maxDateBV">Конечная дата исследуемого периода:</label>
                         </div>
                         <div class="col-4">
-                            <input required class="form-control" id="maxDateBV" type="date" name="maxDate" value="${maxDate}"
+                            <input required class="form-control" id="maxDateBV" type="date" name="maxDate"
+                                   value="${maxDate}"
                                    min="${minDate}"
                                    max="${maxDate}">
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="buttonbv">Рассчитать страховой запас</button>
+                            <button type="submit" class="btn btn-primary" id="buttonbv">Рассчитать страховой запас
+                            </button>
                         </div>
                     </div>
                     <div class="form-group row mb-2 justify-content-between">
@@ -347,7 +344,15 @@
         </div>
     </div>
 </main>
-<!-- JavaScript Bundle with Popper -->
+<footer class="footer mt-auto py-3 fixed-bottom">
+    <div class="container" id="loading" style="display: none">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated w-100" role="progressbar"
+                 aria-valuenow="100"
+                 aria-valuemax="100" aria-valuemin="0"></div>
+        </div>
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>

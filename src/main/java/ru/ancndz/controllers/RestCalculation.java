@@ -31,20 +31,19 @@ public class RestCalculation {
     public Response percentageOfDemandCalculationAPI(@RequestBody RestModel restModel) {
         Calculation calc = new PercentageOfDemand(restModel.getSupplyTime(), restModel.getDailyDemand(), restModel.getDemandVolumeLevel());
 
-        calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
-                calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
+        calc.calculate(null, null);
 
-        return new Response("OK",calc.getStockFormatted());
+        return new Response("OK", calc.getStockFormatted());
     }
 
     @PostMapping("/lv")
     public Response leadVariableCalculation(@RequestBody RestModel restModel) {
         Calculation calc = new LeadVariable(restModel.getDemandVolumeLevel(), restModel.getDailyDemand());
 
-        calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
+        calc.calculate(null,
                 calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
 
-        return new Response("OK",calc.getStockFormatted());
+        return new Response("OK", calc.getStockFormatted());
     }
 
     @PostMapping("/dv")
@@ -52,9 +51,9 @@ public class RestCalculation {
         Calculation calc = new DemandVariable(restModel.getDemandVolumeLevel(), restModel.getSupplyTime());
 
         calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
-                calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
+                null);
 
-        return new Response("OK",calc.getStockFormatted());
+        return new Response("OK", calc.getStockFormatted());
     }
 
     @PostMapping("/ldv")
@@ -64,7 +63,7 @@ public class RestCalculation {
         calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
                 calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
 
-        return new Response("OK",calc.getStockFormatted());
+        return new Response("OK", calc.getStockFormatted());
     }
 
     @PostMapping("/bv")
@@ -74,7 +73,7 @@ public class RestCalculation {
         calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
                 calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
 
-        return new Response("OK",calc.getStockFormatted());
+        return new Response("OK", calc.getStockFormatted());
     }
 
 }

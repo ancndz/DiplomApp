@@ -284,7 +284,7 @@
         <div class="col-sm-5 card m-2 px-0">
             <div class="card-header">
                 <p>Формула Бауэрсокса для расчета величины страхового запаса в условиях
-                    неопределенности. Отличается она от предыдущей тем, что</p>
+                    неопределенности.</p>
             </div>
             <form method="POST" action="${pageContext.request.contextPath}/api/bv" class="card-body" id="bvForm">
                 <fieldset>

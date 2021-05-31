@@ -1,6 +1,5 @@
 package ru.ancndz.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +10,16 @@ import ru.ancndz.services.CalculationService;
 @RequestMapping("/calculations")
 public class CalculationPage {
 
+    /**
+     * Сервис для работы с расчетами.
+     */
     private final CalculationService calculationService;
 
-    @Autowired
+    /**
+     * Конструктор.
+     *
+     * @param calculationService сервис для работы с расчетами
+     */
     public CalculationPage(CalculationService calculationService) {
         this.calculationService = calculationService;
     }
@@ -24,5 +30,4 @@ public class CalculationPage {
         model.addAttribute("maxDate", calculationService.getMaxDate());
         return "calculations";
     }
-
 }

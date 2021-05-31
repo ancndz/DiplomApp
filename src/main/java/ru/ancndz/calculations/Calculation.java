@@ -11,8 +11,14 @@ import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Класс, являющийся основой для конечных реализаций моделей.
+ */
 public abstract class Calculation {
 
+    /**
+     * Логгер.
+     */
     static final Logger logger = LoggerFactory.getLogger(Calculation.class);
 
     /**
@@ -26,20 +32,25 @@ public abstract class Calculation {
     protected Double demandVolumeLevel;
 
     /**
-     * Планируемое время выполнения заказа.
+     * Планируемое время выполнения заказа (дни).
      */
     protected Double leadCycle = .0;
 
     /**
      * Дневной спрос.
      */
-    protected Double demand = .0;
+    protected Double dailyDemand = .0;
 
+    /**
+     * Величина заказа.
+     */
     protected Double orderVal = .0;
 
-    public Calculation() {
-    }
-
+    /**
+     * Конструктор.
+     *
+     * @param demandVolumeLevel уровень сервиса
+     */
     public Calculation(Double demandVolumeLevel) {
         this.demandVolumeLevel = demandVolumeLevel;
     }
@@ -49,72 +60,70 @@ public abstract class Calculation {
      */
     public abstract void calculate(List<Sale> sales, List<Supply> supplies);
 
-    public String getStockFormatted() {
-        return String.format("Страховой запас: %.2f", Math.abs(stock) < 1e-5 ? 0 : stock);
+    /**
+     * Получение нормального ответа.
+     *
+     * @return рассчитанная величина страхового запаса.
+     */
+    public Double getStock() {
+        return Math.abs(stock) < 1e-5 || stock.isNaN() ? 0 : stock;
     }
 
+    /**
+     * Стандартное отклонение.
+     *
+     * @param array исследуемый массив
+     * @return стандартное отклонение
+     */
     protected Double standardDev(double[] array) {
         StandardDeviation standardDeviation = new StandardDeviation(false);
         return standardDeviation.evaluate(array);
     }
 
+    /**
+     * Среднее.
+     *
+     * @param array исследуемый массив
+     * @return среднее
+     */
     protected Double calcAverage(double[] array) {
         return Arrays.stream(array).average().orElse(Double.NaN);
     }
 
+    /**
+     * Расчет Z коэффициента.
+     *
+     * @return Z коэффициент
+     */
     protected double serviceLevelToZ() {
         return Math.sqrt(2) * Erf.erfcInv(2 * (1 - (demandVolumeLevel / 100)));
     }
 
+    /**
+     * Преобразование списка продаж в массив.
+     *
+     * @param saleList список продаж
+     * @return массив
+     */
     protected double[] getSalesArray(List<Sale> saleList) {
-        double[] a = new double[saleList.size()];
+        double[] array = new double[saleList.size()];
         for (int i = 0; i < saleList.size(); i++) {
-            a[i] = saleList.get(i).getSaleCount();
+            array[i] = saleList.get(i).getSaleCount();
         }
-        return a;
+        return array;
     }
 
+    /**
+     * Преобразование списка поставок в массив интервалов между поставками.
+     *
+     * @param supplyList список поставок
+     * @return массив интервалов
+     */
     protected double[] getSupplyDaysArray(List<Supply> supplyList) {
-        double[] b = new double[supplyList.size()];
+        double[] array = new double[supplyList.size()];
         for (int i = 0; i < supplyList.size(); i++) {
-            b[i] = Period.between(supplyList.get(i).getBeginDate(), supplyList.get(i).getEndDate()).getDays();
+            array[i] = Period.between(supplyList.get(i).getBeginDate(), supplyList.get(i).getEndDate()).getDays();
         }
-        return b;
-    }
-
-    public void setStock(Double stock) {
-        this.stock = stock;
-    }
-
-    public Double getDemandVolumeLevel() {
-        return demandVolumeLevel;
-    }
-
-    public void setDemandVolumeLevel(Double demandVolumeLevel) {
-        this.demandVolumeLevel = demandVolumeLevel;
-    }
-
-    public Double getLeadCycle() {
-        return leadCycle;
-    }
-
-    public void setLeadCycle(Double leadCycle) {
-        this.leadCycle = leadCycle;
-    }
-
-    public Double getDemand() {
-        return demand;
-    }
-
-    public void setDemand(Double demand) {
-        this.demand = demand;
-    }
-
-    public Double getOrderVal() {
-        return orderVal;
-    }
-
-    public void setOrderVal(Double orderVal) {
-        this.orderVal = orderVal;
+        return array;
     }
 }

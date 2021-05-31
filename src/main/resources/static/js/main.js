@@ -82,11 +82,12 @@ function fire_ajax_submit(model, url) {
         timeout: 600000,
         success: function (data) {
 
-            var json = JSON.stringify(data.data, null, 4);
+            var json = "Страховой запас: " + parseFloat(data.data).toFixed(2);
             $("#result" + url).html(json);
 
             console.log("SUCCESS : ", data);
             $("#button" + url).prop("disabled", false);
+            $('#footer' + url).show()
             $('#loading').hide();
         },
         error: function (e) {
@@ -99,5 +100,4 @@ function fire_ajax_submit(model, url) {
             $('#loading').hide();
         }
     });
-
 }

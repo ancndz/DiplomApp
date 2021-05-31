@@ -18,12 +18,28 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Главный класс приложения, инициализация начальных данных.
+ */
 @SpringBootApplication
 public class Run implements ApplicationRunner, WebMvcConfigurer {
 
+    /**
+     * Репозиторий для работы с продажами товаров.
+     */
     private final SalesRepository salesRepository;
+
+    /**
+     * Репозиторий для работы с поставками товаров.
+     */
     private final SupplyRepository supplyRepository;
 
+    /**
+     * Конструктор.
+     *
+     * @param salesRepository  репозиторий для работы с продажами товаров
+     * @param supplyRepository репозиторий для работы с поставками товаров
+     */
     public Run(SalesRepository salesRepository, SupplyRepository supplyRepository) {
         this.salesRepository = salesRepository;
         this.supplyRepository = supplyRepository;
@@ -34,6 +50,7 @@ public class Run implements ApplicationRunner, WebMvcConfigurer {
         String datePattern = "dd.MM.yyyy";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(datePattern);
 
+        // инициализация начальных данных из файлов sales.txt и supplies.txt
         addInitDataSales(dateTimeFormatter);
         addInitDataSupplies(dateTimeFormatter);
     }

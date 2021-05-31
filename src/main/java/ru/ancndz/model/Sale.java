@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * Продажа.
+ */
 @Entity
 @Table
 public class Sale {
@@ -21,10 +24,16 @@ public class Sale {
     @Column
     private String id;
 
+    /**
+     * Дата продажи.
+     */
     @Column
     @NotNull
     private LocalDate saleDate;
 
+    /**
+     * Количество проданного товара.
+     */
     @Column
     @NotNull
     private Double saleCount;

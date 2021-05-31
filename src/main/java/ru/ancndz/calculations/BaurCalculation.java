@@ -6,8 +6,17 @@ import ru.ancndz.model.Supply;
 
 import java.util.List;
 
+/**
+ * Реализация модели с неопределенностью поставки и спроса с помощью формулы Бауэрсокса.
+ */
 public class BaurCalculation extends Calculation {
 
+    /**
+     * Конструктор.
+     *
+     * @param demandVolumeLevel уровень сервиса
+     * @param orderVal          величина заказа
+     */
     public BaurCalculation(Double demandVolumeLevel, Double orderVal) {
         super(demandVolumeLevel);
         this.orderVal = orderVal;
@@ -40,5 +49,4 @@ public class BaurCalculation extends Calculation {
         logger.info(String.format("Baur Calculation Info #2: FullDev: %s, f(k): %s, k: %s, Stock: %s",
                 fullDev, fk, Erf.erfcInv(fk), stock));
     }
-
 }

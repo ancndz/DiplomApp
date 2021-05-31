@@ -1,14 +1,23 @@
 package ru.ancndz.model;
 
+/**
+ * Модель ответа сервера.
+ */
 public class Response {
+    /**
+     * Статус.
+     */
     private String status;
+
+    /**
+     * Объект.
+     */
     private Object data;
 
-    public Response(){
-
+    public Response() {
     }
 
-    public Response(String status, Object data){
+    public Response(String status, Object data) {
         this.status = status;
         this.data = data;
     }

@@ -1,6 +1,5 @@
 package ru.ancndz.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +10,24 @@ import ru.ancndz.services.CalculationService;
 @RequestMapping("/data")
 public class DataPage {
 
-    private final CalculationService service;
+    /**
+     * Сервис для работы с расчетами.
+     */
+    private final CalculationService calculationService;
 
-    @Autowired
-    public DataPage(CalculationService service) {
-        this.service = service;
+    /**
+     * Конструктор.
+     *
+     * @param calculationService сервис для работы с расчетами
+     */
+    public DataPage(CalculationService calculationService) {
+        this.calculationService = calculationService;
     }
 
     @GetMapping("/")
     public String viewAllData(Model model) {
-        model.addAttribute("sales", service.findAllSales());
-        model.addAttribute("supplies", service.findAllSupplies());
+        model.addAttribute("sales", calculationService.findAllSales());
+        model.addAttribute("supplies", calculationService.findAllSupplies());
         return "data";
     }
 }

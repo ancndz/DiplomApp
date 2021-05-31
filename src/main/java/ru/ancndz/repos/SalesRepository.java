@@ -7,6 +7,9 @@ import ru.ancndz.model.Sale;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Репозиторий для работы с продажами товаров.
+ */
 @Repository
 public interface SalesRepository extends JpaRepository<Sale, String> {
     Sale findFirstByOrderBySaleDateAsc();

@@ -1,6 +1,5 @@
 package ru.ancndz.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ancndz.model.Sale;
 import ru.ancndz.model.Supply;
@@ -10,13 +9,28 @@ import ru.ancndz.repos.SupplyRepository;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Сервис для работы с расчетами.
+ */
 @Service
 public class CalculationService {
 
+    /**
+     * Репозиторий для работы с продажами товаров.
+     */
     private final SalesRepository salesRepository;
+
+    /**
+     * Репозиторий для работы с поставками товаров.
+     */
     private final SupplyRepository supplyRepository;
 
-    @Autowired
+    /**
+     * Конструктор.
+     *
+     * @param salesRepository  репозиторий для работы с продажами товаров
+     * @param supplyRepository репозиторий для работы с поставками товаров
+     */
     public CalculationService(SalesRepository salesRepository, SupplyRepository supplyRepository) {
         this.salesRepository = salesRepository;
         this.supplyRepository = supplyRepository;
@@ -47,6 +61,6 @@ public class CalculationService {
     public LocalDate getMaxDate() {
         LocalDate saleLastDate = salesRepository.findFirstByOrderBySaleDateDesc().getSaleDate();
         LocalDate supplyLastDate = supplyRepository.findFirstByOrderByEndDateDesc().getEndDate();
-        return saleLastDate.isAfter(supplyLastDate) ? supplyLastDate : saleLastDate;
+        return saleLastDate.isBefore(supplyLastDate) ? saleLastDate : supplyLastDate;
     }
 }

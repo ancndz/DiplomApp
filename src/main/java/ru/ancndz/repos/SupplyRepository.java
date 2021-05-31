@@ -7,6 +7,9 @@ import ru.ancndz.model.Supply;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Репозиторий для работы с поставками товаров.
+ */
 @Repository
 public interface SupplyRepository extends JpaRepository<Supply, String> {
     Supply findFirstByOrderByBeginDateAsc();

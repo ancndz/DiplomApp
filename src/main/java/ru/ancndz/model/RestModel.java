@@ -3,29 +3,50 @@ package ru.ancndz.model;
 
 import java.time.LocalDate;
 
+/**
+ * Модель запроса.
+ */
 public class RestModel {
 
-    private Double supplyTime;
+    /**
+     * Планируемое время выполнения заказа (дни).
+     */
+    private Double leadCycle;
 
+    /**
+     * Дневной спрос.
+     */
     private Double dailyDemand;
 
+    /**
+     * Уровень сервиса.
+     */
     private Double demandVolumeLevel;
 
+    /**
+     * Начальная дата исследования.
+     */
     private LocalDate minDate;
 
+    /**
+     * Конечная дата исследования.
+     */
     private LocalDate maxDate;
 
+    /**
+     * Величина заказа.
+     */
     private Double orderVal;
 
     public RestModel() {
     }
 
-    public Double getSupplyTime() {
-        return supplyTime;
+    public Double getLeadCycle() {
+        return leadCycle;
     }
 
-    public void setSupplyTime(Double supplyTime) {
-        this.supplyTime = supplyTime;
+    public void setLeadCycle(Double leadCycle) {
+        this.leadCycle = leadCycle;
     }
 
     public Double getDailyDemand() {

@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * Поставка товара.
+ */
 @Entity
 @Table
 public class Supply {
@@ -21,10 +24,16 @@ public class Supply {
     @Column
     private String id;
 
+    /**
+     * Дата заказа.
+     */
     @Column
     @NotNull
     private LocalDate beginDate;
 
+    /**
+     * Дата получения в магазине.
+     */
     @Column
     @NotNull
     private LocalDate endDate;

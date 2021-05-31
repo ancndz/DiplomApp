@@ -1,6 +1,5 @@
 package ru.ancndz.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,60 +19,56 @@ import ru.ancndz.services.CalculationService;
 @RequestMapping("/api")
 public class RestCalculation {
 
+    /**
+     * Сервис для работы с расчетами.
+     */
     private final CalculationService calculationService;
 
-    @Autowired
+    /**
+     * Конструктор.
+     *
+     * @param calculationService сервис для работы с расчетами
+     */
     public RestCalculation(CalculationService calculationService) {
         this.calculationService = calculationService;
     }
 
     @PostMapping("/poc")
     public Response percentageOfDemandCalculationAPI(@RequestBody RestModel restModel) {
-        Calculation calc = new PercentageOfDemand(restModel.getSupplyTime(), restModel.getDailyDemand(), restModel.getDemandVolumeLevel());
-
+        Calculation calc = new PercentageOfDemand(restModel.getLeadCycle(), restModel.getDailyDemand(), restModel.getDemandVolumeLevel());
         calc.calculate(null, null);
-
-        return new Response("OK", calc.getStockFormatted());
+        return new Response("OK", calc.getStock());
     }
 
     @PostMapping("/lv")
     public Response leadVariableCalculation(@RequestBody RestModel restModel) {
         Calculation calc = new LeadVariable(restModel.getDemandVolumeLevel(), restModel.getDailyDemand());
-
         calc.calculate(null,
                 calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
-
-        return new Response("OK", calc.getStockFormatted());
+        return new Response("OK", calc.getStock());
     }
 
     @PostMapping("/dv")
     public Response demandVariableCalculation(@RequestBody RestModel restModel) {
-        Calculation calc = new DemandVariable(restModel.getDemandVolumeLevel(), restModel.getSupplyTime());
-
+        Calculation calc = new DemandVariable(restModel.getDemandVolumeLevel(), restModel.getLeadCycle());
         calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
                 null);
-
-        return new Response("OK", calc.getStockFormatted());
+        return new Response("OK", calc.getStock());
     }
 
     @PostMapping("/ldv")
     public Response leadAndDemandVariableCalculation(@RequestBody RestModel restModel) {
-        Calculation calc = new LeadAndDemandVariable(restModel.getDemandVolumeLevel(), restModel.getSupplyTime());
-
+        Calculation calc = new LeadAndDemandVariable(restModel.getDemandVolumeLevel(), restModel.getLeadCycle());
         calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
                 calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
-
-        return new Response("OK", calc.getStockFormatted());
+        return new Response("OK", calc.getStock());
     }
 
     @PostMapping("/bv")
     public Response baurCalculation(@RequestBody RestModel restModel) {
         Calculation calc = new BaurCalculation(restModel.getDemandVolumeLevel(), restModel.getOrderVal());
-
         calc.calculate(calculationService.findSalesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()),
                 calculationService.findSuppliesDependsOnDate(restModel.getMinDate(), restModel.getMaxDate()));
-
-        return new Response("OK", calc.getStockFormatted());
+        return new Response("OK", calc.getStock());
     }
-
 }

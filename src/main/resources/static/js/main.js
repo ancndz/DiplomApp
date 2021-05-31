@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
     $("#pocForm").submit(function (event) {
-        //stop submit the form, we will post it manually.
+        //stop submit the form
         event.preventDefault();
 
         var restModel = {}
-        restModel["supplyTime"] = $("#time").val();
+        restModel["leadCycle"] = $("#time").val();
         restModel["dailyDemand"] = $("#demand").val();
         restModel["demandVolumeLevel"] = $("#demandVolumeLevel").val();
 
@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
 
     $("#lvForm").submit(function (event) {
-        //stop submit the form, we will post it manually.
+        //stop submit the form
         event.preventDefault();
 
         var restModel = {}
@@ -26,11 +26,11 @@ $(document).ready(function () {
     });
 
     $("#dvForm").submit(function (event) {
-        //stop submit the form, we will post it manually.
+        //stop submit the form
         event.preventDefault();
 
         var restModel = {}
-        restModel["supplyTime"] = $("#timeDV").val();
+        restModel["leadCycle"] = $("#timeDV").val();
         restModel["demandVolumeLevel"] = $("#demandVolumeLevelDV").val();
         restModel["minDate"] = $("#minDateDV").val();
         restModel["maxDate"] = $("#maxDateDV").val();
@@ -39,11 +39,11 @@ $(document).ready(function () {
     });
 
     $("#ldvForm").submit(function (event) {
-        //stop submit the form, we will post it manually.
+        //stop submit the form
         event.preventDefault();
 
         var restModel = {}
-        restModel["supplyTime"] = $("#timeLDV").val();
+        restModel["leadCycle"] = $("#timeLDV").val();
         restModel["demandVolumeLevel"] = $("#demandVolumeLevelLDV").val();
         restModel["minDate"] = $("#minDateLDV").val();
         restModel["maxDate"] = $("#maxDateLDV").val();
@@ -52,7 +52,7 @@ $(document).ready(function () {
     });
 
     $("#bvForm").submit(function (event) {
-        //stop submit the form, we will post it manually.
+        //stop submit the form
         event.preventDefault();
 
         var restModel = {}
@@ -87,7 +87,7 @@ function fire_ajax_submit(model, url) {
 
             console.log("SUCCESS : ", data);
             $("#button" + url).prop("disabled", false);
-            $('#footer' + url).show()
+            $("#footer" + url).show()
             $('#loading').hide();
         },
         error: function (e) {

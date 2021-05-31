@@ -7,9 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon/favicon.svg">
-    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/favicon/apple-touch-icon.png">
     <link rel="apple-touch-startup-image" href="${pageContext.request.contextPath}/favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/favicon/favicon-16x16.png">
     <link rel="manifest" href="${pageContext.request.contextPath}/favicon/site.webmanifest">
     <link rel="mask-icon" href="${pageContext.request.contextPath}/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#00aba9">

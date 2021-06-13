@@ -252,7 +252,7 @@
                                 <fieldset>
                                     <div class="form-group row row-cols-1 row-cols-lg-2 g-4 mb-2">
                                         <div class="col-8">
-                                            <label for="timeDV">Планируемое время выполнения заказа:</label>
+                                            <label for="timeDV">Функциональный цикл запаса:</label>
                                         </div>
                                         <div class="col-4">
                                             <input required class="form-control" id="timeDV" type="number" name="time"/>
@@ -340,7 +340,7 @@
                                 <fieldset>
                                     <div class="form-group row row-cols-1 row-cols-lg-2 g-4 mb-2">
                                         <div class="col-8">
-                                            <label for="timeLDV">Планируемое время выполнения заказа:</label>
+                                            <label for="timeLDV">Функциональный цикл запаса:</label>
                                         </div>
                                         <div class="col-4">
                                             <input required class="form-control" id="timeLDV" type="number"

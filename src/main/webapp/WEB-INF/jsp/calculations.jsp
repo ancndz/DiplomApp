@@ -85,13 +85,13 @@
                                             <label for="time">Функциональный цикл запаса:</label>
                                         </div>
                                         <div class="col-sm-4">
-                                            <input required class="form-control" id="time" type="number" name="time"/>
+                                            <input required class="form-control" id="time" type="number" step="0.01" name="time"/>
                                         </div>
                                         <div class="col-sm-8">
                                             <label for="demand">Дневной спрос:</label>
                                         </div>
                                         <div class="col-sm-4">
-                                            <input required class="form-control" id="demand" type="number"
+                                            <input required class="form-control" id="demand" step="0.01" type="number"
                                                    name="demand"/>
                                         </div>
                                         <div class="col-sm-8">
@@ -101,7 +101,7 @@
                                         <div class="col-sm-4">
                                             <div class="input-group">
                                                 <input required class="form-control" id="demandVolumeLevel"
-                                                       type="number"
+                                                       type="number" step="0.01" 
                                                        name="demandVolumeLevel"/>
                                                 <span class="input-group-text">%</span>
                                             </div>
@@ -162,7 +162,7 @@
                                             <label for="demandLV">Дневной спрос:</label>
                                         </div>
                                         <div class="col-4">
-                                            <input required class="form-control" id="demandLV" type="number"
+                                            <input required class="form-control" id="demandLV" type="number" step="0.01" 
                                                    name="demand"/>
                                         </div>
                                         <div class="col-8">
@@ -171,7 +171,7 @@
                                         <div class="col-4">
                                             <div class="input-group">
                                                 <input required class="form-control" id="demandVolumeLevelLV"
-                                                       type="number"
+                                                       type="number" step="0.01" 
                                                        name="demandVolumeLevel"/>
                                                 <span class="input-group-text">%</span>
                                             </div>
@@ -255,7 +255,7 @@
                                             <label for="timeDV">Функциональный цикл запаса:</label>
                                         </div>
                                         <div class="col-4">
-                                            <input required class="form-control" id="timeDV" type="number" name="time"/>
+                                            <input required class="form-control" id="timeDV" type="number" step="0.01" name="time"/>
                                         </div>
                                         <div class="col-8">
                                             <label for="demandVolumeLevelDV">Желаемый уровень сервиса:</label>
@@ -263,7 +263,7 @@
                                         <div class="col-4">
                                             <div class="input-group">
                                                 <input required class="form-control" id="demandVolumeLevelDV"
-                                                       type="number"
+                                                       type="number" step="0.01" 
                                                        name="demandVolumeLevel"/>
                                                 <span class="input-group-text">%</span>
                                             </div>
@@ -343,7 +343,7 @@
                                             <label for="timeLDV">Функциональный цикл запаса:</label>
                                         </div>
                                         <div class="col-4">
-                                            <input required class="form-control" id="timeLDV" type="number"
+                                            <input required class="form-control" id="timeLDV" type="number" step="0.01" 
                                                    name="time"/>
                                         </div>
                                         <div class="col-8">
@@ -352,7 +352,7 @@
                                         <div class="col-4">
                                             <div class="input-group">
                                                 <input required class="form-control" id="demandVolumeLevelLDV"
-                                                       type="number"
+                                                       type="number" step="0.01" 
                                                        name="demandVolumeLevel"/>
                                                 <span class="input-group-text">%</span>
                                             </div>
@@ -428,7 +428,7 @@
                                             <label for="orderVal">Введите размер заказа:</label>
                                         </div>
                                         <div class="col-4">
-                                            <input required class="form-control" id="orderVal" type="number"
+                                            <input required class="form-control" id="orderVal" type="number" step="0.01" 
                                                    name="orderVal"/>
                                         </div>
                                         <div class="col-8">
@@ -437,7 +437,7 @@
                                         <div class="col-4">
                                             <div class="input-group">
                                                 <input required class="form-control" id="demandVolumeLevelBV"
-                                                       type="number"
+                                                       type="number" step="0.01" 
                                                        name="demandVolumeLevel"/>
                                                 <span class="input-group-text">%</span>
                                             </div>
